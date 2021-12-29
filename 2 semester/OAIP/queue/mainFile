@@ -1,0 +1,74 @@
+#include "functional.hpp"
+
+
+int main() {
+    int countNode = 0, check, numberOfNodeDelete;
+    struct Queue *head = NULL, *tail = NULL, *deleteNodes = NULL;
+    
+    while (1) {
+        switch (menu()) {
+            case 1:
+                countNode = push(&head, &tail);
+                break;
+                
+            case 2:
+                countNode = numberOfFullNode(head, tail);
+                output(head, tail, countNode);
+                break;
+                
+            case 3:
+                deleteNodes = head;
+                countNode = numberOfFullNode(head, tail);
+
+                for (int j = 0;deleteNodes; deleteNodes = deleteNodes -> next, j++) {
+                    outputOneStructure(deleteNodes, j);
+                }
+
+                printf("Enter delete node number.\n");
+                do {
+                    check = scanf("%d", &numberOfNodeDelete);
+                    if (check < 1 || numberOfNodeDelete <= 0 || numberOfNodeDelete > countNode) {
+                        rewind(stdin);
+                        printf("There is no such number. Try to enter again.\n");
+                        continue;
+                    }
+                }while (check < 1 || numberOfNodeDelete <= 0 || numberOfNodeDelete > countNode);
+
+                deleteNode(&head, &tail, countNode, numberOfNodeDelete);
+                break;
+                
+            case 4:
+                countNode = numberOfFullNode(head, tail);
+
+                search(head, countNode);
+                break;
+                
+            case 5:
+                saveInFile(head, tail);
+                break;
+                
+            case 6:
+                
+                countNode = loadFromFile(&head, &tail);
+                break;
+                
+            case 7:
+                countNode = numberOfFullNode(head, tail);
+
+                while (head) {
+                    deleteNode(&head, &tail, countNode, 1);
+                }
+                head = NULL;
+                tail = NULL;
+                free(head);
+                free(tail);
+                return 0;
+                break;
+                
+            default:
+                printf("Choose another option.\n");
+                break;
+        }
+    }
+    return 0;
+}
