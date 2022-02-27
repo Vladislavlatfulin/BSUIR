@@ -3,8 +3,8 @@ import serial
 
 
 def serialPorts():
-    port1 = serial.Serial('/dev/ttys000')
-    port2 = serial.Serial('/dev/ttys002')
+    port1 = serial.Serial('/dev/ttys002')
+    port2 = serial.Serial('/dev/ttys003')
 
     print("Port1 is open: " + str(port1.isOpen()))
     print("Port2 is open: " + str(port2.isOpen()))
