@@ -8,9 +8,6 @@
 #include <algorithm>
 #include <vector>
 
-#define COLOR_RED "\033[1;31;40m"
-#define CLEAR_CLS "\033[1;0m"
-
 using namespace std;
 
 struct Flags {
@@ -20,7 +17,7 @@ struct Flags {
          s = false;
 
 public:
-    void print_flags() const;
+    void printFlags() const;
 };
 
 
