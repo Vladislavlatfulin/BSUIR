@@ -322,3 +322,6 @@ cython_debug/
 
 */.idea/
 4 semester/apk/venv
+4 semester/.idea
+4 semester/apk/.idea
+4 semester/spovm/lab1.xcodeproj
