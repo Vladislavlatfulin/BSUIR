@@ -1,26 +1,27 @@
 from traceback import print_tb
 import serial
+import time
 
 
-def serialPorts():
-    port1 = serial.Serial('/dev/ttys001')
-    port2 = serial.Serial('/dev/ttys002')
+def ports():
+    firstPortsDevTtys = serial.Serial('/dev/ttys001')
+    secondPortsDevTtys = serial.Serial('/dev/ttys002')
 
-    print("Port1 is open: " + str(port1.isOpen()))
-    print("Port2 is open: " + str(port2.isOpen()))
+    print("first com port is open: " + str(firstPortsDevTtys.isOpen()))
+    print("second com port is open: " + str(secondPortsDevTtys.isOpen()) + "\n")
 
-    port1.write(b'hello')
-    print(port1.inWaiting())
+    firstPortsDevTtys.write(b'sun')
+    time.sleep(1)
 
-    data = port2.read_all()
+    data = secondPortsDevTtys.read_all()
 
-    print(data)
+    print("second ports read: " + data + "\n")
 
-    port1.close()
-    print("Port1 is closed")
-    port2.close()
-    print("Port2 is closed")
+    firstPortsDevTtys.close()
+    print("first com port is open: " + str(firstPortsDevTtys.isOpen()))
+    secondPortsDevTtys.close()
+    print("second com port is open: " + str(secondPortsDevTtys.isOpen()))
 
 
 if __name__ == '__main__':
-    serialPorts()
+    ports()

@@ -19,8 +19,6 @@ int main(int argc, char* argv[]) {
     return 0;
 }
 
-
-
 std::string getCurrentDirectory(int argc, char **argv) {
     if (argc == 1 || argv[1][0] == '-') { return "./"; }
     return argv[1];
@@ -30,7 +28,7 @@ Flags flagsHandler(int argc, char* argv[]) {
     Flags flags;
     
     string options;
-    bool is_any_flags = false;
+    bool isAnyFlags = false;
     
     if(argv[2]) { options = argv[2]; }
     
@@ -42,15 +40,15 @@ Flags flagsHandler(int argc, char* argv[]) {
         switch (options[i]) {
             case 'l':
                 flags.l = true;
-                is_any_flags = true;
+                isAnyFlags = true;
                 break;
             case 'd':
                 flags.d = true;
-                is_any_flags = true;
+                isAnyFlags = true;
                 break;
             case 'f':
                 flags.f = true;
-                is_any_flags = true;
+                isAnyFlags = true;
                 break;
             case 's':
                 flags.s = true;
@@ -62,7 +60,7 @@ Flags flagsHandler(int argc, char* argv[]) {
         }
     }
     
-    if(is_any_flags == false) { flags.l = flags.d = flags.f = true; }
+    if(isAnyFlags== false) { flags.l = flags.d = flags.f = true; }
     
     return flags;
 }
@@ -87,16 +85,16 @@ void printDirOrFile(std::string path, std::vector<std::string> &files) {
         
         if (entry->d_type == DT_DIR && (dirName == "." || dirName == "..")) { continue; }
         
-        bool show_dir_only = false;
-        if (_flags.d && !_flags.l && !_flags.f) { show_dir_only = true; }
+        bool showDir = false;
+        if (_flags.d && !_flags.l && !_flags.f) { showDir = true; }
         
-        if (!show_dir_only && _flags.l && entry->d_type == DT_LNK) {
+        if (!showDir && _flags.l && entry->d_type == DT_LNK) {
             temp = path + '/' + entry->d_name;
             files.push_back(temp);
             printDirOrFile(temp, files);
         }
         
-        if (!show_dir_only && _flags.f && entry->d_type == DT_REG) {
+        if (!showDir && _flags.f && entry->d_type == DT_REG) {
             temp = path + '/' + entry->d_name;
             files.push_back(temp);
         }
