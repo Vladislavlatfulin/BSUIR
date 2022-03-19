@@ -3,6 +3,9 @@
 .code
 JUMPS
 
+
+
+
 start:
 
 mov ax, @data
@@ -14,46 +17,37 @@ call input_string
 mov dx, offset enter_symbol
 call output_string
 call string_operation
+cmp current_size, 0
+je empty_string_error
+
 mov dx, offset entered_message
 call output_string
 lea dx, string
 call output_string
+call end_proc
 
-mov ax, 4C00h
-int 21h
+empty_string_error proc
+    mov dx, offset empty_string
+    mov ah, 09h
+    int 21h
+    call end_proc
+    ret
+empty_string_error endp
 
-
-
-
-compareb MACRO second ; макрос сравнения указателя si и параметра second
+compareb MACRO second
     push bx
 
-    mov bx, [si]  ; получаем значение в bx через []
+    mov bx, [si]
     cmp bl, second
 
     pop bx
 ENDM
 
+end_proc proc
 
-
-
-print_string proc
-    push dx
-    push ax
-
-    mov dx, offset test_string
-    mov ah, 09h
+    mov ax, 4C00h
     int 21h
-
-    pop ax
-    pop dx
-
-    ret
-print_string endp
-
-
-
-
+end_proc endp
 
 move_right_bytes Macro
     push ax
@@ -67,23 +61,23 @@ move_right_bytes Macro
     mov cx, 07h
     mov dx, bx
 
-end_string_loop: ; цикл прохождения до конца строки
+end_string_loop:
     inc si
     inc di
-    compareb 24h ; ходим по циклу пока di не $
+    compareb 24h
     jne end_string_loop
     dec si
 
  move_right:
-    mov al, [si] ; swap
+    mov al, [si]
     mov [di], al
     dec di
     dec si
-    cmp bx, di ; цикл пока si не равен bx(в bx указатель на первый символ)
+    cmp bx, di
     jne move_right
 
 last_move:
-    mov al, ' ' ; swap
+    mov al, ' '
     mov [di], al
     mov si, di
     inc bx
@@ -123,9 +117,7 @@ end_loop_move:
 ENDM
 
 
-
-
-string_operation proc ; процесс нахождения чисел
+string_operation proc
     push ax
     push bx
     push cx
@@ -142,9 +134,9 @@ start_loop:
 
 skip_spaces:
 
-    compareb 20h     ; 20h - код пробела
+    compareb 20h
 
-    jne check_wordIsNum     ; если не пробел
+    jne check_wordIsNum
 
     inc si
     loop skip_spaces
@@ -152,25 +144,25 @@ skip_spaces:
     jmp end_loop
 
 check_wordIsNum:
-    mov dx, cx         ; временные переменные для хранения указателя на байт и количество символов
+    mov dx, cx
     mov bx, si
 
 loop_checkWordIsNum:
     compareb 30h ; 30h - код 0
-    jl check_space ; если меньше
+    jl check_space
 
     compareb 39h ; 39h - код 9
-    jg check_space ; если больше
+    jg check_space
 
     inc si
 
     loop loop_checkWordIsNum
 
-    jmp wordIsNum     ;закончилась строка и не было выходов из цикла - значит в конце число
+    jmp wordIsNum
 
 check_space:
     compareb 20h
-    jne wordIsNotNum    ; если не пробел - значит слово не число
+    jne wordIsNotNum
 
 wordIsNum:
    move_right_bytes
@@ -179,8 +171,6 @@ wordIsNum:
 
     jmp start_loop
 
-    ;jmp end_loop
-
 wordIsNotNum:
     mov si, bx
     mov cx, dx
@@ -188,7 +178,7 @@ wordIsNotNum:
 loop_wordIsNotNum:
     compareb 20h
 
-    je skip_spaces    ;если пробел
+    je skip_spaces
 
     inc si
     
@@ -208,10 +198,6 @@ end_loop:
 string_operation endp
 
 
-
-
-
-
 input_string PROC
     mov     cx, size_string - 1
     mov     bx, offset string
@@ -221,9 +207,11 @@ input_string PROC
 move_symbol:
     mov     ah, 01h
     int     21h
+    cmp al, 36
+    je end_enter_symbol
     cmp al,13 ; сравнение введенного символа с enter
-    je end_enter_symbol ; если enter
-    mov     byte ptr [bx],al ; запись в bx al
+    je end_enter_symbol
+    mov     byte ptr [bx],al
     inc     bx
     inc     dl
     loop    move_symbol
@@ -231,8 +219,6 @@ end_enter_symbol:
     mov current_size , dl
     ret
 input_string ENDP
-
-
 
 
 output_string proc
@@ -244,17 +230,14 @@ output_string proc
 output_string endp
 
 
-
-
-
 .data
-size_string equ 200h
-current_size db 0h
-string db size_string dup ("$")
+size_string equ 200
+current_size db 0
+string db 950 dup ("$")
 
 enter_symbol db 0Dh, 0Ah, '$'
 enter_message db "Enter your string: $"
 entered_message db "Entered string: $"
 newWord db 'number'
-test_string db "you find a number!", 0Dh, 0Ah, '$'
+empty_string db "your string is empty", 0Dh, 0Ah, '$'
 end start
