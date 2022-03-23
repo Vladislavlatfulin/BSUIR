@@ -207,11 +207,11 @@ input_string PROC
 move_symbol:
     mov     ah, 01h
     int     21h
-    cmp al, 36
+    cmp al, 36 ; код $
     je end_enter_symbol
     cmp al,13 ; сравнение введенного символа с enter
     je end_enter_symbol
-    mov     byte ptr [bx],al
+    mov     [bx],al
     inc     bx
     inc     dl
     loop    move_symbol
@@ -237,7 +237,7 @@ string db 950 dup ("$")
 
 enter_symbol db 0Dh, 0Ah, '$'
 enter_message db "Enter your string: $"
-entered_message db "Entered string: $"
+entered_message db "Your string after processing: $"
 newWord db 'number'
 empty_string db "your string is empty", 0Dh, 0Ah, '$'
 end start
