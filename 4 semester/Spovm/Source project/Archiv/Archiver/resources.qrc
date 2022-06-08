@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>img/Add.png</file>
+        <file>img/Delete.png</file>
+        <file>img/ExtractTo.png</file>
+        <file>img/data-storage.png</file>
+        <file>img/Arrow.png</file>
+    </qresource>
+</RCC>

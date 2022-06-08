@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1082</width>
+    <height>661</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>QtArchiver</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../resources.qrc">
+    <normaloff>:/images/img/data-storage.png</normaloff>:/images/img/data-storage.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QListView" name="listView">
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonTextUnderIcon</enum>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionAdd_files_to_archive"/>
+   <addaction name="separator"/>
+   <addaction name="actionExtract_to"/>
+   <addaction name="separator"/>
+   <addaction name="actionDelete_file"/>
+   <addaction name="separator"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QToolBar" name="subToolBar">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="windowTitle">
+    <string>toolBar_2</string>
+   </property>
+   <property name="allowedAreas">
+    <set>Qt::AllToolBarAreas</set>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>true</bool>
+   </attribute>
+   <addaction name="actionUp_on_level"/>
+  </widget>
+  <action name="actionOpen_archive">
+   <property name="text">
+    <string>Open archive</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionSave_archive_copy_as">
+   <property name="text">
+    <string>Save archive copy as...</string>
+   </property>
+  </action>
+  <action name="actionChange_drive">
+   <property name="text">
+    <string>Change drive</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
+   </property>
+  </action>
+  <action name="actionSet_default_password">
+   <property name="text">
+    <string>Set default password</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
+   </property>
+  </action>
+  <action name="actionCopy_files_to_clipboard">
+   <property name="text">
+    <string>Copy files to clipboard</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+C</string>
+   </property>
+  </action>
+  <action name="actionPaste_files_from_clipboard">
+   <property name="text">
+    <string>Paste files from clipboard</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+V</string>
+   </property>
+  </action>
+  <action name="actionSelect_all">
+   <property name="text">
+    <string>Select all</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+A</string>
+   </property>
+  </action>
+  <action name="actionSelect_group">
+   <property name="text">
+    <string>Select group</string>
+   </property>
+  </action>
+  <action name="actionDeselect_group">
+   <property name="text">
+    <string>Deselect group</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionAdd_files_to_archive">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/images/img/Add.png</normaloff>:/images/img/Add.png</iconset>
+   </property>
+   <property name="text">
+    <string>Add files to archive</string>
+   </property>
+   <property name="iconText">
+    <string>Add</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+A</string>
+   </property>
+  </action>
+  <action name="actionExtract_to">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/images/img/ExtractTo.png</normaloff>:/images/img/ExtractTo.png</iconset>
+   </property>
+   <property name="text">
+    <string>Extract to...</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+E</string>
+   </property>
+  </action>
+  <action name="actionDelete_file">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/images/img/Delete.png</normaloff>:/images/img/Delete.png</iconset>
+   </property>
+   <property name="text">
+    <string>Delete</string>
+   </property>
+   <property name="shortcut">
+    <string>Del</string>
+   </property>
+  </action>
+  <action name="actionRename_file">
+   <property name="text">
+    <string>Rename file</string>
+   </property>
+   <property name="shortcut">
+    <string>F2</string>
+   </property>
+  </action>
+  <action name="actionAbout_QtArchive">
+   <property name="text">
+    <string>About QtArchive</string>
+   </property>
+  </action>
+  <action name="actionUp_on_level">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/images/img/Arrow.png</normaloff>:/images/img/Arrow.png</iconset>
+   </property>
+   <property name="text">
+    <string>Up on level</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+L</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="../resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>
